@@ -1,0 +1,75 @@
+connect -it is used to connect the existing database
+
+create user database_name identified by password;
+
+--------------------------------------------------------------------------------------------------------------
+
+grant dba to database_name;
+
+------------------------------------------------------------------------------------------------------------------
+
+create table emp
+	(id number primary key,
+	 name varchar(10) not null,
+	 age number not null,
+	 address varchar(20) not null,
+	 salary float 
+	);
+---------------------------------------------------------------------------------------------------------------------
+
+create table persons 
+	(
+	 personid number primary key,
+	 lastname varchar(10) not null,
+	 firstname varchar(10) not null,
+	 age number not null
+	);
+----------------------------------------------------------------------------------------------------------------------
+
+create table orders
+	(
+	 orderid number primary key,
+	 ordernumber number not null unique,
+	 personid number references persons(personid)
+	);
+----------------------------------------------------------------------------------------------------------------------
+
+create table course
+	(
+	 courseid varchar(10) primary key,
+	 coursename varchar(10) unique not null
+	);
+----------------------------------------------------------------------------------------------------------------------
+
+create table student
+	(
+	 studentid number primary key,
+	 firstname varchar(20) not null,
+	 lastname varchar(20) not null,
+	 courseid varchar(10) references course(courseid)
+	 );
+----------------------------------------------------------------------------------------------------------------------
+
+create table customers
+	(
+	 customerid number primary key,
+	 firstname varchar(10) not null,
+	 lastname varchar(10) not null
+	);
+-----------------------------------------------------------------------------------------------------------------------
+
+create table products
+	(
+	 productid number primary key,
+	 name varchar(20) not null unique,
+	 price float not null
+	);
+-----------------------------------------------------------------------------------------------------------------------
+
+create table ordername
+	(
+	 ordered number primary key,
+	 productid number references products(productid),
+	 quantity number not null,
+	 customerid number references customers(customerid)
+	);

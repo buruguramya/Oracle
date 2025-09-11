@@ -1,0 +1,128 @@
+create table books (id number primary key,name char(10) not null,price float not null);
+	insert all
+		into books (id,name,price) values (1,'C',250)
+		into books (id,name,price) values (2,'Cpp',350)
+		into books (id,name,price) values (3,'Java',450)
+		into books (id,name,price) values (4,'Kotlin',250)
+		into books (id,name,price) values (5,'Php',650)
+		into books (id,name,price) values (6,'C',1050)
+		into books (id,name,price) values (7,'SQL',500)
+		into books (id,name,price) values (8,'JS',950)
+	select 1 from dual;
+
+
+Task1: Delete,Drop and Truncate commands:
+
+Q1: Delete 3rd id book
+   A: delete books where id=3;
+Q2: Delete all c books
+   A: delete books where name='C'; 
+Q3: Delete all books  whose price is below 500
+   A: delete books where price<500;
+Q4: Delete rest of all books 
+   A: truncate table books;
+Q5: Delete books table from database 
+   A: drop table books;
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Task2: Alter command
+
+create table products (id number primary key, name char(10) not null, cost number not null);
+
+Q1: Developer want to ADD a new columns 		i.e createdtime,modifiedtime
+  A: alter table products add(createdtime timestamp default systimestamp,modfiedtime timestamp default systimestamp);	
+Q2: Developer want to DROP an existing column 	i.e cost 
+  A: alter table products drop column cost;
+
+Q3: Developer want to RENAME  id column to sno
+  A: alter table products rename column id to sno;
+
+Q4: Developer want to MODIFY  name column  size to char(20) and unique constraint.
+  A: alter table products modify(name char(20) unique);
+
+
+------------------------------------------------------------------------------------------------------------------
+
+Task3: Update command
+
+1.Create Table --> employee
+----------------------------
+
+   create table employee
+(
+  id number(2) primary key,
+  name varchar(10) not null,
+  age number(3) not null check(age>0 and age<105),
+  adress varchar(10) not null,
+  salary float(9) not null,
+  createdDate date default sysdate,
+  modifiedDate date default sysdate
+);
+
+  create sequence employee_seq
+  start with 1
+  increment by 1;
+
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Ramesh',32,'Ahmedabad',2000.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Khilan',25,'Delhi',1500.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Kaushik',23,'Kota',2000.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Chaitali',25,'Mumbai',6500.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Hardik',27,'Bhopal',8500.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Komal',22,'MP',4500.00);
+  insert into employee(id,name,age,adress,salary) values(employee_seq.nextval,'Muffy',24,'Indore',10000.00);
+
+Part1:
+
+R1:Modify all employees address to Chennai
+   A: update employee set adress='Chennai'
+R2:Komal wants to update his address to Delhi
+   A: update employee set adress='Delhi' where id=6;
+R3:Muffy wants to update his age to 23, name to Muffi and address to Hyd and salary to 54000
+   A: update employee set age=23,name='Muffi',adress='hyd',salary=54000 where id=7;
+R4:Give bonus of 2500 to all employees
+   A: update employee set salary=salary+2500;
+R5:Give bonus of 5000 to all employees whose salary is below 50000
+   A: update employee set salary=salary+5000 where salary<50000;
+R6:Deduct 1000 from all employees whose salary is above 50000
+   A: update employee set salary=salary-1000 where salary>50000;
+
+
+
+Req1: modify sanju city to Warangal
+      A: update employee set city='Warangal' where name='sanju';
+Req2: modify depak city to karimnagar,age to 31,salary to 44000 and name T SaiDepak
+      A: update employee set city='karimnagar',age=31,salary=44000,name='T SaiDepak' where name='depak';
+Req3: modify all employees cities to Mumbai
+      A: update employee set city='Mumbai';
+Req4: vijay wants change his password to apple
+      A: update employee set password='apple' where name='vijay'
+Req5: venu wants to change his dept to it and city to delhi
+      A: update employee set dept='it',city='delhi' where name='venu'
+Req6: give bonus of 2000 to all employees whose salary is below 45000
+      A: update employee set salary=salary+2000 where salary>45000;
+
+---------------------------------------------------------------------------------------------------------------
+
+Table: accounts
+columns : accno,name,amount
+
+create table accounts(accno number primary key,name varchar(10) not null,amount float not null);
+insert into accounts values(101001,'GANESH',48000);
+insert into accounts values(101002,'VARUN',78000);
+insert into accounts values(101003,'ANIL',88000);
+commit;
+select * from accounts;
+
+
+Part2:
+
+R1:GANESH's father sending 10000 to him.
+   A: update accounts set amount=amount+10000 where accno=101001;
+R2:VARUN did the shopping of 7k.
+   A: update accounts set amount=amount-7000 where accno=101002;
+R3:GANESH wants to send 5000 to VARUN. 
+   A: update accounts set amount=amount-5000 where accno=101001;
+      update accounts set amount=amount+5000 where accno=101002;
+       

@@ -1,0 +1,151 @@
+create user bookmyshow identified by myshow;
+grant dba to bookmyshow;
+
+create table movie
+(
+	movie_id number primary key,
+	movie_name varchar(20) not null unique,
+	language varchar(10) default 'Telugu',
+	genre varchar(20) not null,
+	release_date date not null,
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+create sequence movie_seq
+start with 501
+increment by 1;
+
+insert into movie(movie_id,movie_name,genre,release_date) values(movie_seq.nextval,'Hanuman','ActionFantasy',to_date('15-09-2025 ','dd-mm-yyyy'));
+
+insert into movie(movie_id,movie_name,genre,release_date) values(movie_seq.nextval,'FamilyStar','RomanticDrama',to_date('5-10-2025 ','dd-mm-yyyy'));
+
+insert into movie(movie_id,movie_name,genre,release_date) values(movie_seq.nextval,'Guntur Karam','Action,Drama',to_date('12-11-2025 ','dd-mm-yyyy'));
+
+-------------------------------------------------------------------
+
+create table user_profiles
+(
+	screen_id number primary key,
+	theater_name varchar(20) not null,
+	location varchar(10) default 'Hyderabad',
+	total_seats number not null,
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+create sequence user_profile_seq
+start with 301
+increment by 1;
+
+insert into user_profiles(screen_id,theater_name,total_seats) values(user_profile_seq.nextval,'pvr panjagutta',150);
+
+insert into user_profiles(screen_id,theater_name,total_seats) values(user_profile_seq.nextval,'inox GVK mall',180);
+
+insert into user_profiles(screen_id,theater_name,total_seats) values(user_profile_seq.nextval,'amb cinemas',200);
+
+
+------------------------------------------------------------------
+
+create table screens
+(
+	show_id number primary key,
+	movie_id number references movie(movie_id),
+	screen_id number references user_profiles(screen_id),
+	show_time timestamp not null,
+	available_seats number not null,
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+create sequence screen_seq
+start with 1
+increment by 1;
+
+
+insert into screens(show_id,movie_id,screen_id,show_time,available_seats) values(screen_seq.nextval,501,301,to_timestamp('20-09-2025 10:00:00','dd-mm-yyyy HH24:MI:SS'),120);
+
+insert into screens(show_id,movie_id,screen_id,show_time,available_seats) values(screen_seq.nextval,502,302,to_timestamp('28-09-2025 12:00:00','dd-mm-yyyy HH24:MI:SS'),150);
+
+insert into screens(show_id,movie_id,screen_id,show_time,available_seats) values(screen_seq.nextval,503,303,to_timestamp('28-09-2025 12:00:00','dd-mm-yyyy HH24:MI:SS'),200);
+
+
+-----------------------------------------------------------------
+create table bookings
+(
+	user_id number primary key,
+	user_name varchar(10) not null,
+	email varchar(30) not null unique,
+	phone_no number(10) not null unique,
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+create sequence booking_seq
+start with 101
+increment by 1;
+
+
+insert into bookings(user_id,user_name,email,phone_no) values(booking_seq.nextval,'ramya','buruguramya1743@gmail.com',8747309737); 
+
+insert into bookings(user_id,user_name,email,phone_no) values(booking_seq.nextval,'divya','surughsudivya7343@gmail.com',8658375038); 
+
+insert into bookings(user_id,user_name,email,phone_no) values(booking_seq.nextval,'kavya','bsjhsakjdsa8867@gmail.com',87473684); 
+
+
+------------------------------------------------------------------------------------------
+
+create table payments
+(
+	booking_id number primary key,
+	user_id number references bookings(user_id),
+	show_id number references screens(show_id),
+	seat_no varchar(10) not null,
+	booking_status varchar(10) default 'booked',
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+
+create sequence payment_seq
+start with 1
+increment by 1;
+
+
+insert into payments(booking_id,user_id,show_id,seat_no) values(payment_seq.nextval,101,1,'A10');
+
+insert into payments(booking_id,user_id,show_id,seat_no) values(payment_seq.nextval,102,2,'B5');
+
+insert into payments(booking_id,user_id,show_id,seat_no) values(payment_seq.nextval,103,3,'C15');
+
+
+-------------------------------------------------------------------------------------------
+
+
+create table shows
+(
+	payment_id number primary key,
+	booking_id number references payments(booking_id),
+	amount number not null,
+	payment_method varchar(20) not null,
+	payment_status varchar(10) default 'success',
+	created_date timestamp default systimestamp,
+	modified_date timestamp default systimestamp
+);
+
+create sequence show_seq
+start with 1
+increment by 1;
+
+
+insert into shows
+(payment_id,booking_id,amount,payment_method) values(show_seq.nextval,1,250,'upi');
+
+insert into shows
+(payment_id,booking_id,amount,payment_method) values(show_seq.nextval,2,300,'card');
+
+insert into shows
+(payment_id,booking_id,amount,payment_method) values(show_seq.nextval,3,280,'wallet');
+
+
+

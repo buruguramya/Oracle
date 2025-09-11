@@ -1,0 +1,54 @@
+---emp table---
+insert into emp(id,name,age,address,salary) values(1,'ramesh',32,'ahemadabad',2000.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (2, 'Khilan', 25, 'Delhi', 1500.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (3, 'Kaushik', 23, 'Kota', 2000.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (4, 'Chaitali', 25, 'Mumbai', 6500.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (5, 'Hardik', 27, 'Bhopal', 8500.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (6, 'Komal', 22, 'MP', 4500.00);
+INSERT INTO emp (id, name, age, address, salary) VALUES (7, 'Muffy', 24, 'Indore', 10000.00);
+
+-------------------------------------------------------------------------------------------------
+---persons table---
+INSERT INTO Persons (PersonID, LastName, FirstName, Age) VALUES (1, 'Hansen', 'Ola', 30);
+INSERT INTO Persons (PersonID, LastName, FirstName, Age) VALUES (2, 'Svendson', 'Tove', 23);
+INSERT INTO Persons (PersonID, LastName, FirstName, Age) VALUES (3, 'Pettersen', 'Kari', 20);
+
+---orders table---
+INSERT INTO Orders (OrderID, OrderNumber, PersonID) VALUES (1, 77895, 3);
+INSERT INTO Orders (OrderID, OrderNumber, PersonID) VALUES (2, 44678, 3);
+INSERT INTO Orders (OrderID, OrderNumber, PersonID) VALUES (3, 22456, 2);
+INSERT INTO Orders (OrderID, OrderNumber, PersonID) VALUES (4, 24562, 1);
+
+------------------------------------------------------------------------------------------------
+
+---course table----
+INSERT INTO course(courseId, courseName) VALUES ('A004', 'Accounts');
+INSERT INTO course(courseId, courseName) VALUES ('C002', 'Computing');
+INSERT INTO course(courseId, courseName) VALUES ('P301', 'History');
+INSERT INTO course(courseId, courseName) VALUES ('S042', 'Maths');
+
+---student---
+INSERT INTO student(studentId, firstName, lastName, courseId) VALUES ('L0002345', 'Jim', 'Black', 'C002');
+INSERT INTO student(studentId, firstName, lastName, courseId) VALUES ('L0001254', 'James', 'Harradine', 'A004');
+INSERT INTO student(studentId, firstName, lastName, courseId) VALUES ('L0002349', 'Amanda', 'Holland', 'C002');
+INSERT INTO student(studentId, firstName, lastName, courseId) VALUES ('L0011198', 'Simon', 'McCloud', 'S042');
+
+-------------------------------------------------------------------------------------------------
+--customers---
+INSERT INTO Customers (CustomerID, FirstName, LastName) VALUES (5, 'James', 'Bladwin');
+INSERT INTO Customers (CustomerID, FirstName, LastName) VALUES (236, 'Olivia', 'Pantonelli');
+INSERT INTO Customers (CustomerID, FirstName, LastName) VALUES (721, 'Xi', 'Fang');
+
+
+---products---
+INSERT INTO Products (ProductID, Name, Price) VALUES (2354, 'LF Keyboard', 99.87);
+INSERT INTO Products (ProductID, Name, Price) VALUES (894485, 'WunderMaus', 46.79);
+INSERT INTO Products (ProductID, Name, Price) VALUES (425985, 'Magic Lamp', 77.33);
+INSERT INTO Products (ProductID, Name, Price) VALUES (33786, 'SuperStapler', 12.99);
+INSERT INTO Products (ProductID, Name, Price) VALUES (779642, 'USB-C Dongle', 400.99);
+
+---product orders ---
+INSERT INTO Ordername( ORDERED , ProductID, Quantity, CustomerID) VALUES (34, 2354, 1, 5);
+INSERT INTO Ordername( ORDERED , ProductID, Quantity, CustomerID) VALUES (481, 894485, 3, 721);
+INSERT INTO Ordername( ORDERED , ProductID, Quantity, CustomerID) VALUES (78, 894485, 1, 236);
+

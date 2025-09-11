@@ -1,0 +1,23 @@
+step1: create a table
+ create table aadhardetails
+(
+	id number primary key,
+	uuid number(12) not null unique,
+	name varchar(20) not null;
+);
+
+step2: create a sequence
+
+create sequence aadhar_seq
+start with 1
+increment by 1;
+
+
+step3: insert the values
+
+insert into aadhardetails(id,uuid,name) values(aadhar_seq.nextval,111222333,'ramya');
+insert into aadhardetails(id,uuid,name) values(aadhar_seq.nextval,111222334,'divya');
+insert into aadhardetails(id,uuid,name) values(aadhar_seq.nextval,111222335,'navya');
+
+
+
