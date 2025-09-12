@@ -1,0 +1,100 @@
+Select Command:
+===============
+It is a DQL command used to retrieve / fetch row/rows from table.
+
+syntax:
+
+	select column1name,column2name,...... from <tablename>  [where condition] [group by column] [having condition] [order by column];
+	
+TASK4.1:
+
+Requirement: Show all employees names   (Reading one column value)
+		 A: select emp_name from employees;
+
+Requirement: Show all employees mailid	(Reading one column value)
+		  A: select mailid from employees;
+
+Requirement: Show all employees userid and pswd (Reading more than one column values)
+		   A: select userid,password from employees;
+
+Requirement: Show all employees userid,salary and dept(Reading more than one column values)
+		    A: select userid,salary and dept from employees;
+
+Requirement: Show all employee details
+		   A:  select * from employees;
+
+
+Working aggrigate function in SQL:
+==================================
+
+1.max(columnname)			:  Return maximum value in all rows 
+2.min(columnname)			:  Return minimum value in all rows 
+3.sum(columnname)			:  Return sum of all values in all rows 
+4.avg(columnname)			:  Return average of all values in all rows 
+5.count(columnname)			:  Return number of rows
+
+TASK4.2:
+
+Requirement1: Show highest salary in employees table
+		A: select max(salary) from employees
+
+Requirement2: Show lowest salary in employees table
+		A: select min(salary) from employees
+
+Requirement3: Show sum of all salares in employees table
+		A: select sum(salary) from employees
+
+Requirement4: Show average of all salares in employees table
+		A: select avg(salary) from employees
+
+Requirement5: Show number of rows in employees table
+		A: select count(salary) from employees
+
+Requirement6: Show eldest employee age in employees table
+		A: select max(age) from employees
+
+Requirement7: Show younger employee age in employees table
+		A: select min(salary) from employees
+
+
+Working with Relational operators(<,>,<=,>=,!=,<>,=) in SQL:
+========================================================
+
+TASK4.3:
+
+Requirement1:Show name and age of all employees,  whose salary is below 40000
+		A:select name,age from employees where salary<4000;
+
+Requirement2:Show name,email of employees, whose salary is above 40000
+		A:select name,email from employees where salary>4000;
+
+Requirement3:Show all employees details whose salary is 50000 and above
+		A:select * from employees where salary>=50000;
+
+Requirement4:Show all employees details whose salary is 50000 and below
+		A:select * from employees where salary<=50000;
+
+Requirement5:Show all employees details whose salary is 50000 
+		A:select * from employees where salary=50000;
+
+Requirement6:Show all employees details whose salary is other than 50000 
+		A:select * from employees where salary!=50000;
+
+Requirement7:Show all employees details whose belongs to hyd city
+		A:select * from employees where city="hyd";
+
+Requirement8:Show all employees details whose belongs to eee department
+		A:select * from employees where department="eee";
+
+Requirement9:Show all employees details whose belongs to pune city
+		A:select * from employees where city="pune";
+
+Requirement10:Show all employees details whose belongs to chennai  city
+		A:select * from employees where city="chennai";
+
+Requirement11:Show all employees details whose belongs to cse department 
+		A:select * from employees where department="cse";
+
+Requirement12:Show sanjay details 
+		A:select * from employees where id=7;
+
