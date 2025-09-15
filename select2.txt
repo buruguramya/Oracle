@@ -1,0 +1,88 @@
+Working with Logical operators(and,or,not) in SQL:
+========================================================
+
+TASK5.1:
+	
+	Show all employees details whose belongs to hyd and age is below 30
+   	A: select * from emp where city='hyd' and age<30; 
+
+	Show all employees details whose salares in between 40k and 50k
+	A: select * from emp where salary>40000 and salary<50000; 
+
+	Show all employees details whose belongs to cse dept and salares in between 40k and 50k
+	A: select * from emp where dept='cse' and salary>40000 and salary<50000; 
+
+	Show all male employees details whose belongs to cse dept 
+	A: select * from emp where dept='cse' and gender='male' ; 
+
+	Show all female employees details whose belongs to hyd
+	A: select * from emp where gender='female' and city='hyd'; 
+
+	Show all hyd employees details whose salary is 50k
+	A: select * from emp where salary=50000 and city='hyd'; 	
+
+	Show all non hyd employees details 
+	A: select * from emp where city!='hyd'; 
+	A: select * from emp where city<>'hyd'; 
+	A: select * from emp where not city='hyd'; 
+
+	Show all non hyd employees details whose salary is 50k
+	A: select * from emp where not city='hyd' and salary=50000; 
+
+	Show all hyd employees details
+	A: select * from emp where city='hyd'; 
+
+	Show all hyd,pune employees details
+	A: select * from emp where city='hyd' or city='pune'; 
+
+	Show all hyd,pune,chennai employees details
+	A: select * from emp where city='hyd' or city='pune' or city='chennai';
+
+	Show all non hyd,pune,chennai employees details
+	A: select * from emp where city!='hyd' or city!='pune' or city!='chennai';
+
+	Show all non cse,eee dept employees details
+	A: select * from emp where dept!=cse or dept!=eee;
+
+	Show all male employees details
+	A: select * from emp where gender='male';
+
+Working with Order By Clause:
++++++++++++++++++++++++++++++++
+Order By Clause is used to sort the rows either in asc or desc order.
+Order By Clause by default sort the rows in asc order only.
+
+Syntax:
+
+select columnlist 
+from 	tablename 
+Order By columnname [DESC];
+
+--R1: Show all employee details in ascending order based on their salaries.
+	A: select * from emp order by salaries asc ;
+
+--R2: Show all employee details in descending order based on their salaries.
+	A: select * from emp order by salaries desc ;
+
+--R3: Show all employee emailids in descending order whose salaries between 30k and 40
+	A: select * from emp where salary>40000 and salary<50000 order by emailids desc ;
+
+TASK5.2:
+
+--show all employees in ascending order based on their userids
+	A: select * from emp order by userids asc ;
+
+--show all employees in descending order based on their userids  whose belongs to cse dept
+	A: select * from emp where dept='cse' order by userids desc ;
+
+--show all employees in ascending order based on their ages
+	A: select * from emp order by ages;
+
+--show all employees in descending order based on their ages  whose belongs to hyd city
+	A: select * from emp where city='city' order by ages desc ;
+
+--show all employees in ascending order based on their name
+	A: select * from emp order by name;
+
+--show all employees in descending order based on their names  whose belongs to eee dept
+	A: select * from emp where dept='eee' order by name desc ;
