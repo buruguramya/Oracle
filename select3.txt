@@ -1,0 +1,26 @@
+-- Students with NULL age
+A: select * from students where age is null;
+
+-- Students with NOT NULL grade
+A: select * from students where age is not null;
+
+-- Students from specific cities
+A:select * from students where city in ('hyd','chennai');
+
+-- Students NOT from specific cities
+A:select * from students where city not in ('hyd','chennai');
+
+-- Students aged between 20 and 22
+A:select * from students where age between 20 and 22;
+
+-- Students aged NOT between 20 and 22
+A:select * from students where age not between 20 and 22;
+
+-- Students born between 2003 and 2005
+A:select * from students where born between 2003 and 2005;
+
+-- Students NOT born in that range
+A:select * from students where born not between 2003 and 2005;
+
+-- Students with unknown DOB
+A:select * from students where dob is null;
