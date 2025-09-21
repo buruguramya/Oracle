@@ -1,0 +1,114 @@
+25 Query Problem Statements:
+============================
+
+Reference Table:
+----------------
+drop table employee;
+
+create table employee(
+id number primary key,
+name varchar(6) not null,
+salary number,
+department varchar(9),
+dob date 
+);
+
+insert into employee values(101,'Jack',2000,'HR',to_date('1997-05-19','yyyy-mm-dd'));
+insert into employee values(102,'Jack',null,'HR',null);
+insert into employee values(103,'Mack',6000,'Developer',to_date('1997-03-10','yyyy-mm-dd'));
+insert into employee values(104,'Peter',4000,'Tester',to_date('1998-07-16','yyyy-mm-dd'));
+insert into employee values(105,'Tom',3000,'HR',to_date('1998-11-03','yyyy-mm-dd'));
+insert into employee values(106,'Leo',2500,'Developer',to_date('1997-10-10','yyyy-mm-dd'));
+insert into employee values(107,'Roger',5300,'Accounts',to_date('1997-06-17','yyyy-mm-dd'));
+insert into employee values(108,'Mike',2000,null,to_date('1998-03-09','yyyy-mm-dd'));
+insert into employee values(109,'Paul',4800,'Developer',to_date('1998-12-28','yyyy-mm-dd'));
+insert into employee values(110,'Hannah',2000,'Accounts',to_date('1999-09-26','yyyy-mm-dd'));
+
+commit;
+
+select * from employee;
+====================================
+
+Show all employees names.
+A: select * from employees;
+
+Show all employees names and dob (show birth_day_date instead of dob in output).
+A: select name,dob from employee;
+
+Show all employees id, names, departments and dob.
+A: select id,name,department,dob from employee;
+
+Show all departments in employees table (with out repeating).
+A:select distinct department from employee;
+
+Create a virtual table as emp_info with id,name and salary columns from
+employee table whose salary is below 5000.
+A:select id,name,salary from employee emp_info where salary<5000;
+
+Show all employees details whose belongs to Developer department.
+A:select * from employee where department='Developer';
+
+Show all employees details whose not belongs to HR department.
+A:select * from employee where department!='HR';
+A:select * from employee where department not in ('HR');
+
+Show all employees details whose born after 1st jan 1998.
+A:select * from employee where dob>=to_date('1998-01-01','yyyy-mm-dd');
+
+Show all employees details whose born before 1st jan 1998.
+A:select * from employee where dob<to_date('1998-01-01','yyyy-mm-dd');
+
+Show all employees details whose born between 1st jan 1996 and 31st dec 1998.
+A:select * from employee where dob between to_date('1996-01-01','yyyy-mm-dd') and to_date('1998-12-31','yyyy-mm-dd');
+
+Display all the details of the employee whose name is 'Jack' and has salary below 2500.
+A:select * from employee where name='Jack' and salary<=2500;
+
+Find the record which has name equal to 'Tom' and department is 'Tester'.
+A:select * from employee where name='Tom' and department='Tester';
+
+Display all the details of the employee who has either name is 'Jack' or has salary below 2500.
+A:select * from employee where name='Jack' or salary<=2500;
+
+Find the record which has name equal to 'Tom' ore belongs to 'Developer' department.
+A:select * from employee where name='Tom' and department='Developer';
+
+Display all the details of the employee whose department other than 'HR'.
+A:select * from employee where  department not in 'HR';
+
+Display all the details of the employee whose department other than 'HR' and 'Accounts'.
+A:select * from employee where  department not in ('HR' ,'Accounts');
+
+Display all the details of the employee which don't have salary less than or equal to 3000.
+A:select * from employee where not salary <=3000;
+
+Display all the details of the employees who has id less than 107 and they should either belong to 'developer' or 'tester' department.
+A:select * from employee where id<107 and department='tester' or department='developer';
+ A:select * from employee where id<107 and department in ('Tester','Developer');
+
+Show all employees details whose belongs to Developer and HR department (use in operator).
+A:select * from employee where department in ('HR','Developer');
+
+Display id and name of the employees who has id between 103 and 107.
+A:select id,name from employee where id between 103 and 107;
+
+Display all the details of the employees who has id 102,105,108 and 112.
+A:select id,name from employee where id in (102,105,108,112);
+
+Find id,name and department of the employee who worked in 'HR' or 'Developer' department.
+A:select id,name,department from employee where department in ('HR','Developer');
+
+Display all the details of the employees whose salary is not equal to 2000,3000 and 6000.
+A:select * from employee where SALARY NOT IN (2000,3000,6000);
+
+Show all employees departments and sum salaries in deparment wise.
+A:select department,sum(salary) as sum_salary from employee group by department;
+A:select department,sum(salary) as sum_salary from employee
+where department is not null
+group by department;
+
+Show all employees departments and number of employees in deparment wise.
+A:select department,count(department) as count_salary from employee group by department;
+
+
+
