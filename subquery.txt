@@ -1,0 +1,76 @@
+******
+Task1:
+******
+
+drop table cust;
+create table cust(id number primary key,name char(10) not null);
+insert into cust values(111,'Sachin');
+insert into cust values(222,'Dhoni');
+insert into cust values(333,'SKY');
+
+drop table orders;
+create table orders(id number primary key,product char(10) not null,quantity number not null,cust_id number references cust(id));
+insert into orders values(1,'iPhone14',5,111);
+insert into orders values(2,'MacBook',2,111);
+insert into orders values(3,'PumaShoe',1,222);
+insert into orders values(4,'iPhone15',5,111);
+insert into orders values(5,'iPhone16',10,111);
+insert into orders values(6,'Dell',4,222);
+insert into orders values(7,'NikeShoe',10,111);
+
+commit;
+select * from cust;
+select * from orders;
+
+Q1.Show customer names who made orders
+A:select name from cust where id in(select distinct cust_id from orders);
+
+Q2.Show customer names who haven't orders any product
+A:select name from cust where id not in(select distinct cust_id from orders);
+
+Q3.Show customer names who made above 3 orders
+A:select name from cust where id in (select cust_id from orders group by cust_id having count(cust_id)>3);
+
+
+******
+Task2:
+******
+
+CREATE TABLE movies (
+    movie_id NUMBER PRIMARY KEY,
+    title VARCHAR2(100),
+    genre VARCHAR2(50),
+    rating NUMBER(3,1),  
+    release_year NUMBER
+);
+
+INSERT INTO movies VALUES (1, 'Inception', 'Sci-Fi', 8.8, 2010);
+INSERT INTO movies VALUES (2, 'Interstellar', 'Sci-Fi', 8.6, 2014);
+INSERT INTO movies VALUES (3, 'The Dark Knight', 'Action', 9.0, 2008);
+INSERT INTO movies VALUES (4, 'Parasite', 'Thriller', 8.6, 2019);
+INSERT INTO movies VALUES (5, 'Avengers: Endgame', 'Action', 8.4, 2019);
+INSERT INTO movies VALUES (6, 'Joker', 'Drama', 8.5, 2019);
+INSERT INTO movies VALUES (7, 'Dune', 'Sci-Fi', 8.2, 2021);
+
+COMMIT;
+
+
+1: Find the movie with the highest rating
+A:select title from movies where rating=(select max(rating) from movies);
+
+2: Find movies with a rating higher than the average rating
+A:select title from movies where rating>(select avg(rating)from movies);
+
+3: Find movies released in the same year as 'Parasite'
+A:select title,release_year from movies where release_year in(select release_year from movies where title='Parasite');
+
+4: List movies that belong to the same genre as 'Inception'
+A:select title from movies where genre in(select genre from movies where title='Inception');
+
+5: Find movies released after the earliest movie in the table
+A:select title from movies where release_year >(select min(release_year) from movies);
+
+6: Find movies released in years where average rating > 8.5
+A: select title,release_year from movies where rating>(select rating from movies where rating=8.5);
+
+

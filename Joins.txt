@@ -1,0 +1,237 @@
+=========================
+AND , OR , NOT
+=========================
+
+CREATE TABLE products (
+    product_id NUMBER PRIMARY KEY,
+    product_name VARCHAR2(50),
+    category VARCHAR2(30),
+    price NUMBER
+);
+
+INSERT INTO products VALUES (1, 'Laptop', 'Electronics', 60000);
+INSERT INTO products VALUES (2, 'Phone', 'Electronics', 30000);
+INSERT INTO products VALUES (3, 'Shirt', 'Clothing', 1500);
+INSERT INTO products VALUES (4, 'Shoes', 'Clothing', 2500);
+INSERT INTO products VALUES (5, 'Fridge', 'Electronics', 40000);
+
+
+Usecase1:  Find products in category Electronics AND price > 35000
+
+SELECT product_name, category, price
+FROM products
+WHERE category = 'Electronics'
+  AND price > 35000;
+
+
+Usecase2: Find products that are Clothing AND price > 1000 AND price < 2000
+
+SELECT product_name, category, price
+FROM products
+WHERE category = 'Clothing'
+  AND price > 1000
+  AND price < 2000;
+
+
+Usecase3: Find products that are Electronics OR price < 2000
+
+SELECT product_name, category, price
+FROM products
+WHERE category = 'Electronics'
+   OR price < 2000;
+   
+   
+  
+Usecase4: Find products where product_name = 'Shoes' OR product_name = 'Fridge' OR product_name = 'Phone'
+
+SELECT product_name, category, price
+FROM products
+WHERE product_name = 'Shoes'
+   OR product_name = 'Fridge'
+   OR product_name = 'Phone';
+
+
+Usecase5: Find products that are (Clothing OR price < 35000) AND NOT Laptop
+
+SELECT product_name, category, price
+FROM products
+WHERE (category = 'Clothing' OR price < 35000)
+  AND product_name <> 'Laptop';
+  
+  
+=========================
+GROUP BY and HAVING 
+=========================
+
+CREATE TABLE flights (
+    flight_id NUMBER PRIMARY KEY,
+    airline VARCHAR2(30),
+    source VARCHAR2(30),
+    destination VARCHAR2(30),
+    price NUMBER
+);
+
+
+INSERT INTO flights VALUES (1, 'Air India', 'Delhi', 'Mumbai', 5000);
+INSERT INTO flights VALUES (2, 'IndiGo', 'Delhi', 'Mumbai', 4500);
+INSERT INTO flights VALUES (3, 'SpiceJet', 'Delhi', 'Bangalore', 6000);
+INSERT INTO flights VALUES (4, 'Air India', 'Delhi', 'Bangalore', 5500);
+INSERT INTO flights VALUES (5, 'IndiGo', 'Delhi', 'Mumbai', 4800);
+INSERT INTO flights VALUES (6, 'SpiceJet', 'Delhi', 'Mumbai', 4700);
+
+
+Usecase1: Find total flights from Delhi grouped by destination
+
+SELECT destination, COUNT(*) AS total_flights
+FROM flights
+WHERE source = 'Delhi'
+GROUP BY destination;
+
+
+Usecase2: Show only destinations that have more than 2 flights.
+
+SELECT destination, COUNT(*) AS total_flights
+FROM flights
+WHERE source = 'Delhi'
+GROUP BY destination
+HAVING COUNT(*) > 2;
+
+
+Usecase3: Find average price of flights per destination, but only show those where the average price is above 4800.
+
+SELECT destination, AVG(price) AS avg_price
+FROM flights
+WHERE source = 'Delhi'
+GROUP BY destination
+HAVING AVG(price) > 4800;
+
+
+=========================
+PRACTICE QUESTIONS : Task7
+=========================
+AND / OR / NOT (Products Table)
+CREATE TABLE products (
+    product_id NUMBER PRIMARY KEY,
+    product_name VARCHAR2(50),
+    category VARCHAR2(30),
+    price NUMBER
+);
+
+INSERT INTO products VALUES (1, 'Laptop', 'Electronics', 60000);
+INSERT INTO products VALUES (2, 'Phone', 'Electronics', 30000);
+INSERT INTO products VALUES (3, 'Shirt', 'Clothing', 1500);
+INSERT INTO products VALUES (4, 'Shoes', 'Clothing', 2500);
+INSERT INTO products VALUES (5, 'Fridge', 'Electronics', 40000);
+
+
+1.Find all products that are Electronics AND price > 35000.
+A:select * from products where category='Electronics' and price>35000;
+
+2.Find all products that are Clothing OR price < 2000.
+A:select * from products where category='Clothing' OR price< 2000;
+
+3.Find all products that are NOT in the category ‘Electronics’.
+A:select * from products where not category='Clothing';
+A:select * from products where category<>'Clothing';
+A:select * from products where category!='Clothing';
+
+4.Find all products where category = 'Clothing' AND price < 2000.
+A:select * from products where category='Clothing' AND price < 2000;
+
+5.Find all products where (category = 'Electronics' OR category = 'Clothing') AND price BETWEEN 2000 AND 50000.
+A:select * from products where  (category = 'Electronics' OR category = 'Clothing') AND price BETWEEN 2000 AND 50000.
+
+GROUP BY / HAVING (Flights Table)
+
+CREATE TABLE flights (
+    flight_id NUMBER PRIMARY KEY,
+    airline VARCHAR2(30),
+    source VARCHAR2(30),
+    destination VARCHAR2(30),
+    price NUMBER
+);
+
+
+INSERT INTO flights VALUES (1, 'Air India', 'Delhi', 'Mumbai', 5000);
+INSERT INTO flights VALUES (2, 'IndiGo', 'Delhi', 'Mumbai', 4500);
+INSERT INTO flights VALUES (3, 'SpiceJet', 'Delhi', 'Bangalore', 6000);
+INSERT INTO flights VALUES (4, 'Air India', 'Delhi', 'Bangalore', 5500);
+INSERT INTO flights VALUES (5, 'IndiGo', 'Delhi', 'Mumbai', 4800);
+INSERT INTO flights VALUES (6, 'SpiceJet', 'Delhi', 'Mumbai', 4700);
+
+6.Find the number of flights from Delhi grouped by destination.
+A:select destination,count(*) from flights group by destination;
+
+7.Find the average price of flights grouped by destination.
+A:select destination,avg(price) from flights group by destination;
+
+8.Find destinations where the number of flights > 2 (use HAVING).
+A:select destinations,count(*) 
+from flights
+group by destination
+having count(*)>2;
+
+9.Find airlines and count how many flights each airline operates from Delhi.
+A:select airline,count(*) 
+from flights
+group by airline;
+
+10.Find destinations where the average price of flights > 5000 (use HAVING).
+A:select destination,avg(price) 
+from flights
+group by destination
+having avg(price)> 5000;
+
+=============================================
+NON-EQUI join example
+=============================================
+
+CREATE TABLE price_ranges (
+    range_name VARCHAR2(20),
+    min_price NUMBER,
+    max_price NUMBER
+);
+
+INSERT INTO price_ranges VALUES ('Low', 0, 3000);
+INSERT INTO price_ranges VALUES ('Medium', 3001, 5000);
+INSERT INTO price_ranges VALUES ('High', 5001, 7000);
+
+
+We want to join flights with their price range:
+
+SELECT f.flight_id, f.airline, f.destination, f.price, r.range_name
+FROM flights f
+INNER JOIN price_ranges r
+  ON f.price BETWEEN r.min_price AND r.max_price;
+
+=============================================
+SELF join example
+=============================================
+CREATE TABLE flights (
+    flight_id NUMBER PRIMARY KEY,
+    airline VARCHAR2(30),
+    source VARCHAR2(30),
+    destination VARCHAR2(30),
+    price NUMBER,
+    manufacture_day VARCHAR2(10)  
+);
+
+INSERT INTO flights VALUES (1, 'Air India', 'Delhi', 'Mumbai', 5000, 'Monday');
+INSERT INTO flights VALUES (2, 'IndiGo', 'Delhi', 'Mumbai', 4500, 'Tuesday');
+INSERT INTO flights VALUES (3, 'SpiceJet', 'Delhi', 'Bangalore', 6000, 'Monday');
+INSERT INTO flights VALUES (4, 'Air India', 'Delhi', 'Bangalore', 5500, 'Wednesday');
+INSERT INTO flights VALUES (5, 'IndiGo', 'Delhi', 'Mumbai', 4800, 'Tuesday');
+INSERT INTO flights VALUES (6, 'SpiceJet', 'Delhi', 'Mumbai', 4700, 'Monday');
+
+
+Suppose we want to find flights that have same manufacture_day
+
+SELECT f1.flight_id AS flight1_id,
+       f1.airline   AS flight1_airline,
+       f1.manufacture_day,
+       f2.flight_id AS flight2_id,
+       f2.airline   AS flight2_airline
+FROM flights f1
+INNER JOIN flights f2
+  ON f1.manufacture_day = f2.manufacture_day  -- same day
+ AND f1.flight_id < f2.flight_id;             -- avoid duplicates

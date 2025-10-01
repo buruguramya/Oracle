@@ -1,0 +1,54 @@
+CREATE OR REPLACE PROCEDURE Pro1
+AS BEGIN
+	for i IN 1..10 LOOP
+		if MOD(i, 2) = 0 THEN
+		dbms_output.put_line(i);
+		end if;
+	end loop; 
+end ;
+/
+
+execute Pro1;
+O/P
+2
+4
+6
+8
+10
+---------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE Pro1
+AS BEGIN
+	for i IN  1..10 LOOP
+		dbms_output.put_line(-i);
+	end loop; 
+end Pro1;
+/
+execute Pro1;
+O/P
+-1
+-2
+-3
+-4
+-5
+-6
+-7
+-8
+-9
+-10
+----------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE Pro1
+AS BEGIN
+	for i IN 1..10 LOOP
+		if MOD(i, 2) <> 0 THEN  //if MOD(i, 2) != 0 THEN
+		dbms_output.put_line(i);
+		end if;
+	end loop; 
+end ;
+/
+execute Pro1;
+O/P
+1
+3
+5
+7
+9
